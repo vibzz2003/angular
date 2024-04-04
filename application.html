@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+    <div ng-app="myapp" ng-controller="myctrl"> <!--controller controls the angular js application-->
+        <p>First Name: <input type="text" ng-model="firstname"></p><br>
+        <p>Last Name: <input type="text" ng-model="lastname"></p><br>
+        <br>
+        FULL NAME = {{firstname + " " + lastname}}
+    </div>
+
+    <script>
+        var app = angular.module('myapp',[]);
+        app.controller('myctrl', function($scope){
+            $scope.firstname = 'Vibhor';
+            $scope.lastname = 'Kaushik';
+        });
+    </script>
+</body>
+</html>
+
+<!-- ->angular module defines applications
+var app = angular.module('myapp',[]); -->
+
+<!-- ->angular controllers control the application--
+app.controller('myctrl', function($scope){
+    $scope.firstName = 'vibhor';
+    $scope.lastname = 'minocha';
+}
+); -->
+

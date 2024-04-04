@@ -1,0 +1,58 @@
+<!-- angular module defines an application
+
+module is a container for different parts of an application
+
+is also a container for application controllers
+
+controllers always belong to the module -->
+<!-- ---------------------------------------------------------------- -->
+
+
+<!-- creating a module
+
+<div ng-app="hello">
+...
+</div>
+
+<script>
+    var app = angular.module('hello',[]);
+</script> -->
+
+
+<!------------------------------------------------------------------------------>
+
+<!-- the hello parameter refers to html element in which the application will run
+now we can add directive, controller, etc -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="first">
+    <div ng-controller="ctrl">
+        {{firstname + " " + lastname}}
+    </div>
+
+    <div test-directive></div>
+
+    <script>
+        var app = angular.module("first",[]);
+
+        app.controller("ctrl", function($scope){
+            $scope.firstname = "Ranya";
+            $scope.lastname = "Vibhor";
+        });
+
+        app.directive("testDirective", function(){
+            return {
+                template: "I was made in directive constructor!"
+            };
+        });
+    </script>
+</body>
+</html>
+<!--The [] is used to define dependent modules, without this we are not creating new module, we are retrieving exisiting ones-->

@@ -1,0 +1,104 @@
+<!--ng-model directive binds the value of HTML controls to the application data-->
+<!--
+example:
+
+<div ng-app = "myapp" ng-controller="myctrl">
+    Nmae: <input ng-model="name">
+</div>
+
+<script>
+    var app = angular.module("myapp",[]);
+    app.controller('myctrl', function($scope){
+        $scope.name="john doe";
+    });
+</script>
+
+-->
+
+<!--there is 2 way binding also, if the user changes the value inside the input field, the angularjs property will also change it value
+
+<div ng-app="myapp" ng-controller="ctrl">
+    Name: <input ng-model="name">
+    <h1> You entered: {{name}}</h1>
+</div>
+
+
+-->
+
+<!--NG-MODEL is also used to validate the application data (number, email, phone)
+
+<form ng-app="" name="myform">
+    Email:
+    <input type = "email" name="myaddress" ng-model="text">
+    <span ng-show="myform.myaddress.$error.email>"Not a valid e mail</span>
+</form> 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <style>
+        input.ng-invalid{
+            background-color: aquamarine;
+        }
+
+        input.ng-valid{
+            background-color: chocolate;
+        }
+    </style>
+</head>
+
+<body ng-app="myapp">
+    <div>
+        <form name="myform">
+            Email:
+            <input type="email" name="myemail" ng-model="text">
+            <span ng-show="myform.myemail.$error.email">Not a valid email</span>
+        </form>
+    </div>
+
+    <div>
+        <form name="myform1" ng-init="mytext = 'post@myweb.com'">
+            Email:
+            <input type="email" name="myemail" ng-model="mytext" required>
+            <h1>Status:</h1>
+            {{myform1.myemail.$valid}}
+            {{myform1.myemail.$dirty}}
+            {{myform1.myemail.$touched}}
+        </form>
+    </div> 
+
+    <div ng-controller="myctrl">
+        <h1 ng-click="changename()">{{firstname}}</h1>
+    </div>
+
+    <script>
+        var app = angular.module('myapp', []);
+        app.controller('myctrl', function($scope){
+            $scope.firstname = 'john';
+            $scope.changename = function(){
+                $scope.firstname = 'doe';
+            }
+        });
+    </script>
+</body>
+</html>
+
+<!--
+    The ng-model directive adds/removes the following classes, according to the status of the form field:
+
+ng-empty
+ng-not-empty
+ng-touched
+ng-untouched
+ng-valid
+ng-invalid
+ng-dirty
+ng-pending
+ng-pristine
+
+-->

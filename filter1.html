@@ -1,0 +1,134 @@
+<!--filters are added to the html data to format the data
+currency - formats number to currency format
+date formate date to specified format
+filter select a subset of items from an array
+limitTo limits any array/string into a specified no. of elements/characters
+lowercase formats strin to lower case
+number format numbers to a string
+orderBy orders an array by an expression
+uppercase formats string to upper case
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body ng-app="myapp">
+    <div ng-controller="myctrl">
+        <p>The name is {{lastname | uppercase}}</p>
+        <br>
+        <p>The name is {{firstname | lowercase}}</p>
+    </div>
+
+    <div ng-controller="myctrl1">
+        <ul>
+            <li ng-repeat="x in names | orderBy:'country'">
+                {{x.name + ',' + x.country}}
+            </li>
+        </ul>
+    </div>
+
+    <div ng-controller="myctrl2">
+        <h1>Price: {{ price | currency }}</h1>
+    </div>
+
+    <!--filter selects a subset of an array, it can also be used on arrays and it returns an array containing only the matched items-->
+
+    <div ng-controller="myctrl3">
+        <ul>
+            <li ng-repeat="x in names | filter : 'i'">
+                {{x}}
+            </li>
+        </ul>
+    </div>
+
+    <div ng-controller="myctrl4">
+        <p>Type a letter in the input field:</p>
+        <p><input type="text" ng-model="test"></p>
+
+        <ul>
+            <li ng-repeat="x in names | filter:test">
+                {{x}}
+            </li>
+        </ul>
+    </div>
+
+    <div ng-controller="myctrl5">
+        <table border="1" width="100%">
+            <tr>
+                <th ng-click="orderByMe('name')">Name</th>
+                <th ng-click="orderByMe('country')">Country</th>
+            </tr>
+            <tr ng-repeat="x in names | orderBy: MYorderByMe">
+                <td>{{x.name}}</td>
+                <td>{{x.country}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        var app = angular.module('myapp',[]);
+        app.controller('myctrl', function($scope){
+            $scope.firstname = 'JOHN';
+            $scope.lastname = 'Doe';
+        });
+
+        app.controller('myctrl1', function($scope){
+            $scope.names=[
+                {name: 'vibhor', country: 'India'},
+                {name: 'ranya', country: 'India'},
+                {name: 'vetali', country: 'Asia'}
+            ];
+        });
+
+        app.controller('myctrl2', function($scope){
+            $scope.price = 30000;
+        });
+
+        app.controller('myctrl3', function($scope){
+            $scope.names=[
+                'Vibhor',
+                'Vetali',
+                'Ranya'
+            ];
+        });
+
+        app.controller('myctrl4', function($scope){
+            $scope.names=[
+                'Jani',
+                'Carl',
+                'Margareth',
+                'Hege',
+                'Joe',
+                'Gustav',
+                'Birgit',
+                'Mary',
+                'Kai'
+            ];
+        });
+
+        app.controller('myctrl5', function($scope){
+            $scope.names=[
+                {name:'Jani',country:'Norway'},
+                {name:'Carl',country:'Sweden'},
+                {name:'Margareth',country:'England'},
+                {name:'Hege',country:'Norway'},
+                {name:'Joe',country:'Denmark'},
+                {name:'Gustav',country:'Sweden'},
+                {name:'Birgit',country:'Denmark'},
+                {name:'Mary',country:'England'},
+                {name:'Kai',country:'Norway'}
+            ];
+            $scope.orderByMe = function(x){
+                $scope.MYorderByMe = x;
+            }
+        });
+
+    </script>
+</body>
+</html>

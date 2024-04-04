@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body ng-app="myapp">
+    <!--Directives are used to extend HTML with new attributes, it has a set of built in directives which offers functionality
+    We can also define our own directives-->
+
+    <!--start with ng- 
+    ng-app initialises the angular applicatino
+
+    ng-init inititalises application data
+
+    ng-model binds the value of HTML component to application data
+    -->
+
+    <div ng-init="firstname = 'John'">
+        <p>Name: <input type="text" ng-model="firstname"></p>
+        <p>You wrote: <span ng-bind="firstname"></span></p>
+        <!--ng-app also tells that the body tag is the owner of the angular application-->
+    </div>
+
+    <!--if we would have used {{}} expression instead of ng-bind the binding would have been of {{firstname }} with ng-model="firstname"-->
+
+    <div ng-init="quantity=1;price=10">
+        quantity: <input type="text" ng-model="quantity">
+        price: <input type="text" ng-model="price">
+        <br><br>
+        Total cost: {{quantity * price}}
+        <br><br>If we double it would be: <span ng-bind="price  *  2"></span>
+        <br><br>If we add 2 to it it would be: <span ng-bind="price+2"></span>
+    </div>
+
+    <!--Repeating elemenets of HTML using ng-repeat-->
+    <div ng-init="names = ['Vibhor', 'Ranya', 'Minocha', 'Kaushik']">
+        <ul>
+            <li ng-repeat="x in names">
+                {{x}}
+            </li>
+        </ul>
+    </div>
+
+    <!--ng-repeat actually clones HTML elements once for each item in a collection-->
+
+    <div ng-init="names=[
+    {name: 'Jani', country: 'Inida'},
+    {name: 'Norwe', country: 'Norway'},
+    {name: 'Kal', country: 'French'},
+    ]">
+
+    <ul>
+        <li ng-repeat="x in names">
+            {{x.name + " , " + x.country}}
+        </li>
+    </ul>
+
+    </div>
+    <!--Angular is perfect for database CRUD(Create Read Update Delete) applications-->
+
+
+    <!--Creating new directives
+    
+        using .directive function
+
+        to invoke the new directive, we have to make a HTML element with the same  tag name as the new directive
+
+        When naming the directive we have to camel case the name
+
+        w3VibhorDirective but when invl=oking we have to use -
+        w3-vibhor-directive
+    -->
+
+    <w3-vibhor-directive></w3-vibhor-directive>
+
+    <script>
+        var app = angular.module("myapp",[]);
+
+        app.directive("w3VibhorDirective", function(){
+            return{
+                template: "<h1>Made by a directive</h1>"
+            };
+        });
+    </script>
+
+    <!-- We can invoke a directive using 
+    
+        1. element name
+        2. class
+        3. comment
+        4. attribute
+
+        1. <w3-vibhor-directive></w3-vibhor-directive>
+        2. <div w3-vibhor-directive></div>
+        3. <div class = "w3-vibhor-directive"></div>
+        comment starts {directive: w3-vibhor-directive} comment ends
+    -->
+
+    <!--Restricting the directives:
+        
+        A - ATTRIBUTES
+        E - ELEMENT NAME
+        C - CLASS
+        M - COMMENT
+
+    -->
+
+    <!--
+
+        var app = angular.module("myapp",[]);
+        app.directive("w3-vibhor-directive", function(){
+            return{
+                restrict: "A",
+                template: "<h1>Made by a directive</h1>"
+            };
+        });
+
+        A means it can only be invoked through attributes
+
+        EA means that both element names and attribute names can invoke the directive
+    -->
+</body>
+</html>

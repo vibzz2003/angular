@@ -1,0 +1,41 @@
+<!-- angukar expression can be written in {{expressions}}
+
+can also be written inside directive : 
+ng-bind = "expression" -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body ng-app="">
+    <div ng-init="myCol='lightblue'">
+        <p>My first expression use: {{5+5}}</p>
+        <br>
+        <input style="background-color: {{myCol}}" ng-model="myCol">
+    </div>
+    <!--cant use both div togerther, first one will work but not the second-->
+    <!--SO WE USE NG-APP IN BODY AND USE DIV TAGE FOR NG INIT-->
+    <div ng-init="quantity=1 ;cost=5">
+        <p>Total cost in dollars : <span ng-bind="quantity*cost"></span></p>
+    </div>
+    <div ng-init="firstName='John';lastName='Doe'">
+        <p>The name is {{firstName + " " + lastName}}</p>
+    </div>
+    <div ng-init="person={firstname:'Vibhor',lastname:'Minocha'}">
+        <p>The last name is {{person.lastname}}</p>
+        <p>The first name is : <span ng-bind="person.firstname"></span></p>
+    </div>
+    <div ng-init="points=[1,15,2,3,5,6]">
+        <p>The third result of array is: <span ng-bind="points[2]"></span></p>
+    </div>
+</body>
+</html>
+
+<!-- if we write the html without ng-app then the html will display the expression without solving it -->
+
+<!--changing the css property via angulkar-->
+<!-- using ng-init  -->
