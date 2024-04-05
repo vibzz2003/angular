@@ -16,7 +16,6 @@ uppercase formats string to upper case
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
 </head>
 <body ng-app="myapp">
     <div ng-controller="myctrl">
@@ -69,6 +68,14 @@ uppercase formats string to upper case
                 <td>{{x.country}}</td>
             </tr>
         </table>
+    </div>
+
+    <div ng-controller="myctrl6">
+        <ul>
+            <li ng-repeat="x in names">
+                {{x | myFormat}}
+            </li>
+        </ul>
     </div>
 
     <script>
@@ -129,6 +136,22 @@ uppercase formats string to upper case
             }
         });
 
+        app.filter('myFormat', function(){
+            return function(x){
+                var i, c, txt = " ";
+                for(i=0; i < x.length; i++){
+                    c = x.charAt(i);
+                    if(i%2 == 0){
+                        c = c.toUpperCase();
+                    }
+                    txt += c;
+                }
+                return txt;
+            };
+        });
+        app.controller('myctrl6', function($scope){
+            $scope.names=['Jani', 'Carl', 'Margareth', 'Hege', 'Joe', 'Gustav', 'Birgit', 'Mary', 'Kai'];
+        });
     </script>
 </body>
 </html>

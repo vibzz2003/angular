@@ -1,0 +1,61 @@
+<!--SERVICE:
+            service is a fucntion or object that is available for or limited 
+            to your angular js application
+
+            angularjs has about 30 built in services. One of them is $location service
+
+            The location service has methods which return information about the location of the current web page
+-->
+
+<!--HTTP:
+        $hhtp service is one of the most common service used in angularjs it makes request to the server and lets application handle the response
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js">
+    </script>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="ctrl1">
+        <p>The url of this page is thru $location is:</p>
+        <h3>{{myUrl}}</h3>
+    </div>
+
+    <div ng-controller="ctrl2">
+        <p>The text for using $html service is:</p>
+        <h3>{{myWelcome}}</h3>
+    </div>
+
+    <div ng-controller="ctrl3">
+        <p>the timeout in this text will change in 2 seconds</p>
+        <h3>{{myHeader}}</h3>
+    </div>
+
+    <script>
+        var app = angular.module('myapp',[]);
+        app.controller('ctrl1', function($scope, $location){
+            $scope.myUrl = $location.absUrl();
+        });
+
+        app.controller('ctrl2', function($scope, $http){
+            $http.get("welcome.htm").then(function(response){
+                $scope.myWelcome = response.data;
+            });
+        });
+
+        app.controller('ctrl3', function($scope, $timeout){
+            $scope.myHeader = 'Hello World!';
+            $timeout(function(){
+                $scope.myHeader = 'How are you today?';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
+
+<!--location is passed in to the controller as an argument-->
