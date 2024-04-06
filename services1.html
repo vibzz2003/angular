@@ -36,6 +36,20 @@
         <h3>{{myHeader}}</h3>
     </div>
 
+    <!--$interval is for runnning a function every specified millisecond-->
+
+    <div ng-controller="ctrl4">
+        <p>The time:</p>
+        <h3>{{time}}</h3>
+    </div>
+
+    <!--CREATING OWN SERVICE:-->
+    <div ng-controller="ctrl5">
+        <p>The value (hexadecimal) of 255 is:</p>
+        <h3>{{hex}}</h3>
+        <h1>{{255 | myFormat}}</h1>
+    </div>
+
     <script>
         var app = angular.module('myapp',[]);
         app.controller('ctrl1', function($scope, $location){
@@ -54,7 +68,54 @@
                 $scope.myHeader = 'How are you today?';
             }, 2000);
         });
+
+        app.controller('ctrl4', function($scope, $interval){
+            $scope.time = new Date().toLocaleTimeString();
+            $interval(function(){
+                $scope.time = new Date().toLocaleTimeString();
+            },1000);
+        });
+
+        app.service('hexify', function(){
+            this.myFunc = function(x){
+                return x.toString(16);
+            }
+        })
+
+        app.controller('ctrl5', function($scope, hexify){
+            $scope.hex = hexify.myFunc(255);
+        });
+
+        app.filter('myFormat', ['hexify',
+            function(hexify){
+                return function(x){
+                    return hexify.myFunc(x);
+                };
+            }
+        ]);
+
+        
+
+        
+        
     </script>
+    <!--$scope.time = new Date().toLocalTimeString();
+        $interval(fucntion(){
+            $scope.time = new Date().toLocalTimeString();
+        },1000)-->
+
+    <!--for making your own function:
+        app.service('function_name', function(){
+            this.myFunc = function(x){
+                return x.toString(16) or any other operation on x
+            };
+        });
+
+        app.controller('controller_name', function($scope, service_name){
+            $scope.hex = service_name.myFunc(255);
+        })
+    
+    -->
 </body>
 </html>
 
