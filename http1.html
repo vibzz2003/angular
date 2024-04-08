@@ -1,0 +1,101 @@
+<!--$http is an angular service for reading data from remote servers-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="ctrl1">
+        <p>Todays message is:</p>
+        <p>{{mywelcome}}</p>
+    </div>
+
+    <div ng-controller="ctrl2">
+        <p>Data: {{content}}</p>
+        <p>Status: {{statuscode}}</p>
+        <p>StatusText: {{statustext}}</p>
+    </div>
+
+    <div ng-controller="ctrl3">
+        <ul>
+            <li ng-repeat="x in mydata">
+                {{x.Name + ',' + x.Country}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        var app = angular.module('myapp',[]);
+        // app.controller('ctrl1', function($scope, $http){
+        //     $http.get('welcome.htm').then(function(response){
+        //         $scope.mywelcome = response.data;
+        //     });
+        // });
+
+        app.controller('ctrl1', function($scope, $http){
+            $http({
+                method : "GET",
+                url : "welcome.htm"
+            }).then(function mysuccess(response){
+                $scope.mywelcome = response.data;
+            }, function myerror(response){
+                $scope.mywelcome = response.statusText;
+            });
+        });
+
+        app.controller('ctrl2', function($scope, $http){
+            $http.get("welcome.htm").then(function(response){
+                $scope.content = response.data;
+                $scope.statuscode = response.status;
+                $scope.statustext = response.statusText;
+            }, function(response){
+                $scope.content = "Something went wrong!";
+            });
+        });
+
+        app.controller('ctrl3', function($scope, $http){
+            $http.get('customer.php').then(function(response){
+                $scope.mydata = response.data.records;
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!--the .get method is a shortcut method of the $http service
+    other shortcuts are:
+    - .delete()
+    - .get()
+    - .head()
+    - .jsonp()
+    - .patch()
+    - .post()
+    - .put()
+
+
+    app.controller('control1', function($scope, $http){
+        $http.get("welcome.htm").then(function mysuccess(response){
+            $scope.mywelcome = response.data;
+        }, function myerror(response){
+            $scope.mywelcome = response.statusText;
+        });
+    });
+
+
+    PROPERTIES:
+    the respoinse from the server is object with these properties:
+
+    .config - the object used to generate the request
+    .data - string, or an object, caarying the response from the server
+    .headers - a function to use to get header information
+    .status - number defining the http status
+    .statusText - a string defining http service
+
+
+    the data we get from response is expected to be ion JSON format
+
+    JSON is a great way of transporting data
+-->
