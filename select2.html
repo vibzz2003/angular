@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="ctrl1">
+        <p>Select a car:</p>
+        <select ng-model="selectedCar">
+            <option ng-repeat="x in cars" value="{{x.model}}">{{x.model}}</option>
+        </select>
+
+        <h1>You selected: {{selectedCar}}</h1>
+    </div>
+
+    <div ng-controller="ctrl2">
+        <p>Select a truck:</p>
+        <select ng-model="selectedTruck">
+            <option ng-repeat="x in trucks" ng-value="{{x}}">{{x.model}}</option>
+        </select>
+
+        <h2>You selected a {{selectedTruck.color}} {{selectedTruck.model}}</h2>
+    </div>
+
+    <div ng-controller="ctrl3">
+        <p>Select a bike:</p>
+        <select ng-model="selectedBike" ng-options="x.model for x in bikes"></select>
+        <h1>You selected: {{selectedBike.model}}</h1>
+        <p>Its color is: {{selectedBike.color}}</p>      
+    </div>
+
+
+    <script>
+        var app = angular.module('myapp',[]);
+        app.controller('ctrl1', function($scope){
+            $scope.cars = [
+                {model: "Ford Mustang", color: "red"},
+                {model: "Fiat 500", color: "black"},
+                {model: "Volvo XC9V", color: "blue"}
+            ];
+        });
+
+        app.controller('ctrl2', function($scope){
+            $scope.trucks = [
+                {model: "TATA a", color: "black"},
+                {model: "Mercedez b", color: "red"},
+                {model: "BMW s", color: "blue"}
+            ];
+        });
+
+        app.controller('ctrl3', function($scope){
+            $scope.bikes = [
+                {model: "KAWASAKI a5", color: "limegreen"},
+                {model: "BMW S6", color: "black"},
+                {model: "DUCCATI", color: "red"}
+            ];
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="ctrl1">
+        <p>Select a car:</p>
+        <select ng-model="selectedCar" ng-options="x for (x,y) in cars"></select>
+        <h1>You selected: {{selectedCar}}</h1>
+    </div>
+
+    <div ng-controller="ctrl2">
+        <p>Select a bike:</p>
+        <select ng-model="selectedBike" ng-options="y.brand for (x,y) in bikes"></select>
+        <h2>You selected: {{selectedBike.brand}}</h2>
+        <h3>Model: {{selectedBike.model}}</h3>
+        <h4>Color: {{selectedBike.color}}</h4>
+    </div>
+
+    <script>
+        var app = angular.module('myapp', []);
+        app.controller('ctrl1', function($scope){
+            $scope.cars = {
+                car01 : "ford",
+                car02 : "bmw",
+                car03 : "mercerdez",
+            };
+        });
+
+        app.controller('ctrl2', function($scope){
+            $scope.bikes = {
+                bike01 : {brand : "Ford", model : "Mustang", color : "red"},
+                bike02 : {brand : "Fiat", model : "500", color : "white"},
+                bike03 : {brand : "Volvo", model : "XC90", color : "black"}
+            };
+        });
+    </script>
+</body>
+</html>

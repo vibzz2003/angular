@@ -1,0 +1,37 @@
+<!--lets u use dropdown box based on list in array or object
+
+created using ng-options-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myapp">
+
+    <div ng-controller="ctrl1">
+        <select ng-model="selectedname" ng-options="name for name in names"></select>
+    </div>
+    <!--we can also use ng-repeat to list down the names-->
+    
+    <div ng-controller="ctrl2">
+        <select>
+            <option ng-repeat="x in names"></option>
+        </select>
+    </div>
+
+    <script>
+        var app = angular.module('myapp', []);
+        app.controller('ctrl1', function($scope){
+            $scope.names = ['Emily', 'Toby', 'Vibhor', 'Ranya'];
+        });
+
+        app.controller('ctrl2', function($scope){
+            $scope.names = ['Emily', 'Toby', 'Vibhor', 'Ranya'];
+        });
+    </script>
+</body>
+</html>
