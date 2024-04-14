@@ -1,0 +1,86 @@
+<!--provides data binding and validation of input controls
+
+    input sontrols of html input elements:
+    1. input elements
+    2. select elements
+    3. button elements
+    4. textarea elements
+
+
+    data binding using ng-model
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="ctrl1">
+        <form>
+            First Name: <input type="text" ng-model = "firstname">
+            <input type="checkbox" ng-model="myvar1">
+        </form>
+        <h2>The name entered is: {{firstname}}</h2>
+        <h2 ng-show="myvar1">{{firstname}}</h2>
+    </div>
+
+    
+        <form>
+            Pick a topis:
+            <input type="radio" ng-model ="myvar" value="dogs">dogs
+            <input type="radio" ng-model="myvar" value="tutorials">tutorials
+            <input type="radio" ng-model="myvar" value="cars">cars
+        </form>
+
+        <div ng-switch="myvar">
+            <div ng-switch-when="dogs">
+                <h1>Dogs</h1>
+                <p>Welcome to the world of dogs</p>
+            </div>
+
+            <div ng-switch-when="tutorials">
+                <h1>Tutorials</h1>
+                <p>Welcome to the world of tutorials</p>
+            </div>
+
+            <div ng-switch-when="cars">
+                <h1>Cars</h1>
+                <p>Welcome to the world of Cars</p>
+            </div>
+        </div>
+
+        <!--same can be done with select boxes-->
+
+        <div ng-controller="ctrl2">
+            <form novalidate> <!--It disables any default browser validation.-->
+                First Name: <br>
+                <input type="text" ng-model="user.firstname"><br>
+                Last Name: <br>
+                <input type="text" ng-model="user.lastname"><br>
+                <br><br>
+                <button ng-click="reset()">RESET</button>
+            </form>
+            <p>form = {{user}}</p>
+            <p>master = {{master}}</p>
+        </div>
+    
+
+    <script>
+        var app = angular.module('myapp',[]);
+        app.controller('ctrl1', function($scope){
+            $scope.firstname = "Vibhor";
+        });
+
+        app.controller('ctrl2', function($scope){
+            $scope.master = {firstname: "Ranya", lastname: "Minocha"};
+            $scope.reset = function(){
+                $scope.user = angular.copy($scope.master);
+            };
+            $scope.reset();
+        });
+    </script>
+</body>
+</html>
