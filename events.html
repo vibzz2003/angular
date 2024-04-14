@@ -1,0 +1,128 @@
+<!--we can add event listeneers using these event directives:
+ng-blur
+ng-change
+ng-click
+ng-copy
+ng-cut
+ng-dblclick
+ng-focus
+ng-keydown
+ng-keypress
+ng-keyup
+ng-mousedown
+ng-mouseenter
+ng-mouseleave
+ng-mousemove
+ng-mouseover
+ng-mouseup
+ng-paste
+
+these allow us to run functions at certain user events
+
+it will not overwrite html event, both events will be executed
+-->
+
+<!--MOUSE EVENTS:
+when cursor moves over an elenment:
+1. ng-mouseover
+2. ng-mouseenter
+3. ng-mousemove
+4. ng-mouseleave
+
+or when mouse moves
+1. ng-mousedown
+2. mouseup
+3. ng-click
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="ctrl1">
+        <h1 ng-mousemove="count = count + 1">Mouse over me!</h1>
+        <h2>{{count}}</h2>
+    </div>
+
+    <div ng-controller="ctrl2">
+        <h1 ng-mouseover="count = count + 1">Mouse over me now!</h1>
+        <h2>{{count}}</h2>
+    </div>
+
+    <div ng-controller="ctrl3">
+        <h1 ng-mouseenter="count = count + 1">Mouse over me now!</h1>
+        <h2>{{count}}</h2>
+    </div>
+
+    <div ng-controller="ctrl4">
+        <h1 ng-click="count = count + 1">Click me now!</h1>
+        <h2>{{count}}</h2>
+    </div>
+
+    <div ng-controller="ctrl5">
+        <button ng-click = "myfunction()">Click me now!</button>
+        <p>{{count}}</p>
+    </div>
+
+    <div ng-controller="ctrl6">
+        <button ng-click="myfunction()">Click me to reveal something!</button>
+        <div ng-show="showme">
+            <h1>Menu:</h1>
+            <div>Pizza</div>
+            <div>Pasta</div>
+            <div>Pesce</div>
+        </div>
+    </div>
+
+    <div ng-controller="ctrl7">
+        <h1 ng-mousemove="myfunction($event)">Mouse over me!</h1>
+        <p>Coordinates: {{x + ',' + y}}</p>
+    </div>
+
+    <script>
+        var app = angular.module('myapp',[]);
+        app.controller('ctrl1', function($scope){
+            $scope.count = 0;
+        });
+
+        app.controller('ctrl2', function($scope){
+            $scope.count = 0;
+        });
+
+        app.controller('ctrl3', function($scope){
+            $scope.count = 0;
+        });
+
+        app.controller('ctrl4', function($scope){
+            $scope.count = 0;
+        });
+
+        app.controller('ctrl5', function($scope){
+            $scope.count = 0;
+            $scope.myfunction = function(){
+                $scope.count++;
+            }
+        });
+
+        app.controller('ctrl6', function($scope){
+            $scope.showme = false;
+            $scope.myfunction = function(){
+                $scope.showme = ! $scope.showme;
+            }
+        });
+
+        app.controller('ctrl7', function($scope){
+            $scope.myfunction = function(mye){
+                $scope.x = mye.clientX;
+                $scope.y = mye.clientY;
+            }
+        });
+    </script>
+    
+</body>
+</html>
